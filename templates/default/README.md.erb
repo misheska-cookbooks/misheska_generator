@@ -2,3 +2,58 @@
 
 TODO: Enter the cookbook description here.
 
+## Usage
+
+TODO: Describe how to use the cookbook.
+
+## Recipes
+***default***
+
+TODO: Describe each recipe.
+
+## Attributes
+***default***
+
+TODO: Describe attributes.
+
+## Resources
+***my_resource***
+
+TODO: Describe resource
+
+### Examples
+
+- TODO: Describe resource example
+
+```ruby
+my_resource 'name' do
+  property1 'value1'
+end
+```
+
+=========
+
+Actions:
+
+| Action  | Description  |
+|---------|--------------|
+| action1 | Do something |
+
+Properties:
+
+| Property  | Default        | Description          |
+|-----------|----------------|----------------------|
+| property1 | `'some_value'` | Do something         |
+| action    | `:create`      | Action(s) to perform |
+
+## Install locally
+
+````
+chef exec berks vendor
+chef-client --local-mode --log_level error --override-runlist "<%= cookbook_name %>" --config-option cookbook_path="$(pwd)/berks-cookbooks"
+```
+
+## License & Authors
+- Author: <%= copyright_holder %> <<%= email %>>
+
+<%= license_description.rstrip %>
