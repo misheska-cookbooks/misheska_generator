@@ -57,6 +57,18 @@ template "#{cookbook_dir}/.kitchen.yml" do
   action :create_if_missing
 end
 
+template "#{cookbook_dir}/.kitchen.vagrant.yml" do
+
+  if context.use_berkshelf
+    source 'kitchen.vagrant.yml.erb'
+  else
+    source 'kitchen_policyfile.vagrant.yml.erb'
+  end
+
+  helpers(ChefDK::Generator::TemplateHelper)
+  action :create_if_missing
+end
+
 # Inspec
 directory "#{cookbook_dir}/test/smoke/default" do
   recursive true

@@ -1,0 +1,32 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  # You may wish to disable always updating cookbooks in CI or other testing environments.
+  # For example:
+  #   always_update_cookbooks: <%%= !ENV['CI'] %>
+  always_update_cookbooks: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: boxcutter/centos73
+  - name: boxcutter/ubuntu1604
+
+  - name: macos
+    driver:
+      box: macos1012
+      box_url: file:///Users/misheska/box/macos1012-vmware10.0.10-0.1.10.box
+      vm_hostname: false
+
+suites:
+  - name: default
+    run_list:
+      - recipe[<%= cookbook_name %>::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:

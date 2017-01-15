@@ -1,20 +1,39 @@
 ---
 driver:
-  name: vagrant
+  name: dokken
+  chef_version: latest
+  privileged: true # SystemD/Upstart need privileged access to run daemons
+
+transport:
+  name: dokken
 
 provisioner:
-  name: chef_zero
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%%= !ENV['CI'] %>
-  always_update_cookbooks: true
+  name: dokken
 
 verifier:
   name: inspec
+  # Uncomment the following two lines to make Chef tools visible in image
+  # root_path: '/opt/verifier'
+  # sudo: false
 
 platforms:
-  - name: ubuntu-16.04
-  - name: centos-7.2
+  - name: centos73
+    driver:
+      image: centos:7.3.1611
+      platform: rhel
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN yum -y install lsof which systemd-sysv initscripts net-tools
+      forward:
+        - 8080:80
+
+  - name: ubuntu1604
+    driver:
+      image: ubuntu:16.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
 suites:
   - name: default
