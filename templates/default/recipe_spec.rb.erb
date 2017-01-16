@@ -2,14 +2,18 @@
 # Cookbook:: <%= cookbook_name %>
 # Spec:: default
 #
-<%= license_description('#') %>
+# Copyright:: 2017, <%= copyright_holder %>
+# Licensed under the Apache License, Version 2.0
 
 require 'spec_helper'
 
 describe '<%= cookbook_name %>::<%= recipe_name %>' do
   context 'When all attributes are default, on an unspecified platform' do
     let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
+      runner = ChefSpec::ServerRunner.new(
+        platform: 'centos',
+        version: '7.3.1611'
+      )
       runner.converge(described_recipe)
     end
 
