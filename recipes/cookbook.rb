@@ -75,6 +75,12 @@ template "#{cookbook_dir}/.kitchen.vagrant.yml" do
   action :create_if_missing
 end
 
+# CircleCI
+cookbook_file "#{cookbook_dir}/circle.yml" do
+  source "circle.yml"
+  action :create_if_missing
+end
+
 # Inspec
 directory "#{cookbook_dir}/test/smoke/default" do
   recursive true
