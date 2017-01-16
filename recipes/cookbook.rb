@@ -30,6 +30,13 @@ template "#{cookbook_dir}/CHANGELOG.md" do
   action :create_if_missing
 end
 
+# LICENSE
+template "#{cookbook_dir}/LICENSE" do
+  source "LICENSE.apachev2.erb"
+  helpers(ChefDK::Generator::TemplateHelper)
+  action :create_if_missing
+end
+
 # chefignore
 cookbook_file "#{cookbook_dir}/chefignore"
 
